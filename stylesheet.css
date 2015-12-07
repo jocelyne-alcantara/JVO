@@ -1,0 +1,13 @@
+.ng-invalid.ng-dirty{
+	border-color: #fa787e
+}
+
+.ng-valid.ng-dirty{
+	border-color: #78fa89
+}
+
+img {
+    width: 23em;
+    height: 14em;
+    border: 3px solid #73AD21;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="itemList">
+  <head>
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script type="text/javascript" src="libraries/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
+  </head>
+  <body ng-controller="ListController as store" ng-app="">
+
+      <div ng-init="items = [{title:'Wii console, games/Nintendo games', price: 100, category: 'games', description: 'Wii Console @ $100, Two Wii remotes @ $10 each, Wii games @ 20 each, Nintendo DS @ $50, Nintendo games @ $15 each', location: 'san francisco', phone:'209-993-1175', email: 'joc@example.org', images: '00N0N_8zS9M2XbCqd_600x450.jpg'},
+                         {title:'12.5 Lenovo Laptop Lightweight & Power i5/6GB/320GB/Win 7/ Office 2k7', price: 200, category: 'laptop', description: 'Pick up in Sunnyvale Price is firm Lenovo X201 Thinkpad laptop in excellent working condition Light and powerful perfect for travelers and students The battery holds a good charge Lenovos Laptops are the best, reliable and the most sold on the market', location: 'daly city', phone:'209-603-2050', email: 'joe@example.org', images: '00v0v_1zV0cl2ExQx_600x450.jpg'}]"></div>
+
+  <label>Search:
+    <input ng-model="searchText">
+  </label>
+  <div id="searchTextResults">
+    <div ng-repeat="item in items | filter:searchText">
+      <p>{{item.title}}</p>
+      <p>{{item.price | currency}}</p>
+      <p>{{item.description}}</p>
+      <p>{{item.location}}</p>
+      <p>{{item.phone}}</p>
+      <p>{{item.email}}</p>
+      <img ng-src="{{item.images}}"/>
+      <hr>
+    </div>
+  </div>
+
+
+      <div ng-repeat="product in store.products">
+        <section ng-controller="PostController as tab">
+          <div class="nav nav-pills">
+            <div ng-class="{ active:tab.isSet(0)}" style="text-align:center;">
+              <Button href="" class="btn btn-success" ng-click="tab.setTab(0)">Post</button>
+                <hr>
+            </div>
+          </div>
+          
+          <div ng-show="tab.isSet(0)">
+              <h4>Make your post here</h4>
+              <div ng-repeat="review in product.reviews">
+                  <p>{{review.title}} </p>
+                  <p>{{review.price | currency}}</p>
+                  <p>{{review.description}}</p>
+                  <p>{{review.location}}</p>
+                  <p>{{review.phone}}</p>
+                  <p>{{review.email}}</p>
+              </div>
+
+
+            <!--  Review Form -->
+            <form name="reviewForm" ng-controller="ItemController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+
+              <!--  Review Form -->
+              <fieldset class="form-group">
+                <strong>Title: </strong>
+                <textarea ng-model="reviewCtrl.review.title" class="form-control" placeholder="title of your post..." title="Title" required></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <strong>Description: </strong>
+                <textarea ng-model="reviewCtrl.review.description" class="form-control" placeholder="Write a short review of the product..." title="Description" required></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <strong>Price: </strong>
+                <textarea ng-model="reviewCtrl.review.price" input type="number" min="1" max="9999" size="4" class="form-control" placeholder="price" title="Description" required></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <strong>Location: </strong>
+                <textarea ng-model="reviewCtrl.review.location" class="form-control" placeholder="San Francisco" title="Location" required></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <strong>Phone Number: </strong>
+                <textarea ng-model="reviewCtrl.review.phone" input type="number" class="form-control" placeholder="2096032050" title="Phone" required></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <strong>Email: </strong>
+                <input ng-model="reviewCtrl.review.email" type="email" class="form-control" placeholder="jimmyDean@example.org" title="Email" required/>
+              </fieldset>
+              <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+              </fieldset>
+            </form>
+          </div>
+        </section>
+      </div>
+  </body>
+</html>
